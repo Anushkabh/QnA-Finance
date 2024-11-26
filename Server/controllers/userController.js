@@ -1,11 +1,7 @@
-import { User } from "../models/userModel.js";
-
-import { setCookie } from "../utils/features.js";
-
-import bcrypt from "bcrypt";
 
 
-let user;
+
+
 import { User } from "../models/userModel.js";
 import { setCookie } from "../utils/features.js";
 import bcrypt from "bcrypt";

@@ -1,13 +1,10 @@
-
-const bcrypt = require('bcrypt');
-
+import bcrypt from 'bcrypt'; // If you're using bcrypt
+import { User } from '../models/userModel.js'; // Adjust path as per structure
+import { connectToDB } from '../db/database.js'; // Import the DB connection
+import mongoose from 'mongoose'; // Import mongoose to close connection
 
 // MongoDB Connection
-const User = require('../models/userModel'); // Adjust path as per structure
-const db = require('../db/database'); // If you have a separate DB connection file
-db.connect();
-
-
+connectToDB();
 
 const createAdmin = async () => {
   const name = "Anushka"; // Replace with desired admin name
@@ -42,3 +39,4 @@ const createAdmin = async () => {
 };
 
 createAdmin();
+

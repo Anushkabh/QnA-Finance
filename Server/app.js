@@ -1,5 +1,6 @@
 import express from "express";
 import userRouter from "./Routers/userRouter.js";
+import questionRouter from "./Routers/quesRouter.js";
 
 import cookieParser from "cookie-parser";
 import { config } from "dotenv";
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/question", questionRouter);
 
 
 app.get("/", (req, res) => {
