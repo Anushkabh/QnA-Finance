@@ -20,7 +20,7 @@ export default function CommentSection({ questionId }) {
     }
 
     try {
-      const res = await fetch(`/api/v1/question/${questionId}/comment`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionId}/comment`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,7 +51,7 @@ export default function CommentSection({ questionId }) {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(`/api/v1/question/${questionId}/comments`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionId}/comments`);
         if (res.ok) {
           const data = await res.json();
           setComments(data.comments || []); // Ensure comments is always an array

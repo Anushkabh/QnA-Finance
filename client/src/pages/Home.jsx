@@ -7,7 +7,7 @@ export default function Home() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch('/api/v1/question/approved');
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/approved`);
         const data = await res.json();
         if (res.ok) {
           setQuestions(data.questions);

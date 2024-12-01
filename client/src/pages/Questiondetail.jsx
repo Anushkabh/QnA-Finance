@@ -17,7 +17,7 @@ export default function QuestionDetails() {
       try {
         console.log(questionId) // 
         setLoading(true);
-        const res = await fetch(`/api/v1/question/${questionId}/all`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionId}/all`);
         const data = await res.json();
         if (!res.ok) {
           setError(true);

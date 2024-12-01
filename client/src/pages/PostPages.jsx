@@ -17,7 +17,7 @@ export default function PostPages() {
     const fetchQuestion = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`/api/v1/question/${questionId}`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionId}`);
         const data = await res.json();
         if (!res.ok) {
           setError(true);

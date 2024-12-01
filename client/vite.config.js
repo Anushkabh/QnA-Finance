@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://qna-finance-1.onrender.com/', // Your backend server
+        target: 'http://localhost:4000', // Your backend server
         changeOrigin: true,
         secure: false,
       },

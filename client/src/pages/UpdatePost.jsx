@@ -27,7 +27,7 @@ export default function UpdateQuestion() {
 
     const fetchQuestion = async () => {
       try {
-        const res = await fetch(`/api/v1/question/${questionId}/all`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionId}/all`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${currentUser?.token}` // Ensure token is sent if required
@@ -60,7 +60,7 @@ export default function UpdateQuestion() {
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/v1/question/${questionId}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

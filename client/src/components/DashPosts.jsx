@@ -16,7 +16,7 @@ export default function DashQuestions() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch('/api/v1/question/every', {
+        const res = await fetch('${import.meta.env.VITE_API_BASE_URL}/api/v1/question/every', {
           headers: {
             Authorization: `Bearer ${currentUser?.token}`,
           },
@@ -39,7 +39,7 @@ export default function DashQuestions() {
   // Delete a question
   const handleDeleteQuestion = async () => {
     try {
-      const res = await fetch(`/api/v1/question/${questionIdToDelete}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionIdToDelete}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${currentUser?.token}`,

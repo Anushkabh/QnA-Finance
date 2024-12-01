@@ -15,7 +15,7 @@ export default function AdminAllQuestions() {
   useEffect(() => {
     const fetchQuestions = async (page = 1) => {
       try {
-        const res = await fetch(`/api/v1/question/admin/questions?limit=10&page=${page}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/questions?limit=10&page=${page}`, {
           headers: {
             Authorization: `Bearer ${currentUser?.token}`,
           },
@@ -42,7 +42,7 @@ export default function AdminAllQuestions() {
   // Delete a question
   const handleDeleteQuestion = async () => {
     try {
-      const res = await fetch(`/api/v1/question/${questionIdToDelete}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionIdToDelete}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${currentUser?.token}`,
@@ -68,7 +68,7 @@ export default function AdminAllQuestions() {
   const handlePageChange = (page) => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch(`/api/v1/question/admin/questions?limit=10&page=${page}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/questions?limit=10&page=${page}`, {
           headers: {
             Authorization: `Bearer ${currentUser?.token}`,
           },

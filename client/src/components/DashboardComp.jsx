@@ -13,7 +13,7 @@ export default function Questionstatus() {
   useEffect(() => {
     const fetchPendingQuestions = async () => {
       try {
-        const res = await fetch('/api/v1/question/admin/pending', {
+        const res = await fetch('${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/pending', {
           headers: {
             Authorization: `Bearer ${currentUser?.token}`,
           },
@@ -36,7 +36,7 @@ export default function Questionstatus() {
   // Handle status update
   const handleUpdateStatus = async (questionId, status) => {
     try {
-      const res = await fetch(`/api/v1/question/admin/${questionId}/status`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/${questionId}/status`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

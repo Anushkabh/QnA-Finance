@@ -14,7 +14,7 @@ export default function Header() {
   // Handle user logout
   const handleSignout = async () => {
     try {
-      const res = await fetch('/api/v1/user/logout', {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/logout`, {
         method: 'GET',
         credentials: 'include', // Include cookies in the request
       });

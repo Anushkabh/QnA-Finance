@@ -14,7 +14,7 @@ export default function DashPendingQuestions() {
   useEffect(() => {
     const fetchPendingQuestions = async () => {
       try {
-        const res = await fetch('/api/v1/question/pending', {
+        const res = await fetch('${import.meta.env.VITE_API_BASE_URL}/api/v1/question/pending', {
           headers: {
             Authorization: `Bearer ${currentUser?.token}`, // Pass token if required
           },
@@ -37,7 +37,7 @@ export default function DashPendingQuestions() {
   const handleDeleteQuestion = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/v1/question/${questionIdToDelete}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionIdToDelete}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${currentUser?.token}`, // Pass token if required
