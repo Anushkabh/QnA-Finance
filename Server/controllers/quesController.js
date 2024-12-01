@@ -67,6 +67,7 @@ export const createQuestion = async (req, res) => {
     try {
       const { id } = req.params; // Question ID from URL params
       const userId = req.user.id; // User ID from authenticated token
+      const isAdmin = req.user.isAdmin; // Admin status from authenticated token
   
       // Find the question by ID
       const question = await Question.findById(id);
@@ -74,18 +75,23 @@ export const createQuestion = async (req, res) => {
         return res.status(404).json({ message: "Question not found" });
       }
   
-      // Check if the current user is the owner of the question
-      if (question.owner.toString() !== userId) {
-        return res.status(403).json({ message: "You can only delete your own questions" });
+      // Allow deletion if the user is the owner or an admin
+      if (question.owner.toString() !== userId && !isAdmin) {
+        return res
+          .status(403)
+          .json({ message: "You are not authorized to delete this question" });
       }
   
+      // Delete the question
       await Question.findByIdAndDelete(id);
   
       res.status(200).json({ message: "Question deleted successfully" });
     } catch (error) {
+      console.error("Error deleting question:", error);
       res.status(500).json({ message: "Error deleting question", error });
     }
   };
+  
   
 
    
@@ -137,6 +143,72 @@ export const manageQuestionStatus = async (req, res) => {
       return res.status(500).json({ message: "Internal Server Error" });
     }
   };
+ 
+
+  export const getQuestionById = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      // Fetch the question by ID and check if it's approved
+      const question = await Question.findOne({ _id: id, status: 'approved' })
+        .populate("owner", "name email") // Populate owner details
+        .populate("comments.user", "name email"); // Populate comment authors
+  
+      // If the question is not found or not approved, return an error
+      if (!question) {
+        return res.status(404).json({
+          success: false,
+          message: "Question not found or not approved",
+        });
+      }
+  
+      // Return the approved question details
+      res.status(200).json({
+        success: true,
+        message: "Approved question fetched successfully",
+        question,
+      });
+    } catch (error) {
+      console.error("Error fetching question by ID:", error);
+      res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+      });
+    }
+  };
+  export const getQuestionByIdALL = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      // Fetch the question by ID and check if it's approved
+      const question = await Question.findOne({ _id: id })
+        .populate("owner", "name email") // Populate owner details
+        .populate("comments.user", "name email"); // Populate comment authors
+  
+      // If the question is not found or not approved, return an error
+      if (!question) {
+        return res.status(404).json({
+          success: false,
+          message: "Question not found ",
+        });
+      }
+  
+      // Return the approved question details
+      res.status(200).json({
+        success: true,
+        message: "Approved question fetched successfully",
+        question,
+      });
+    } catch (error) {
+      console.error("Error fetching question by ID:", error);
+      res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+      });
+    }
+  };
+  
+  
 
 
 
@@ -167,6 +239,25 @@ export const manageQuestionStatus = async (req, res) => {
       });
     } catch (error) {
       res.status(500).json({ message: "Error fetching pending questions", error });
+    }
+  };
+  
+  export const getAllUserQuestions = async (req, res) => {
+    try {
+      const userQuestions = await Question.find({
+        owner: req.user._id,
+      }).sort({ createdAt: -1 });
+  
+      res.status(200).json({
+        message: "All questions fetched successfully",
+
+        questions: userQuestions,
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: "Error fetching all user questions",
+        error,
+      });
     }
   };
   
@@ -217,7 +308,74 @@ export const manageQuestionStatus = async (req, res) => {
       });
     }
   };
-    
+  export const getCommentsByQuestionId = async (req, res) => {
+    try {
+      const { id } = req.params;
+  
+      // Fetch the question by ID and populate only the 'name' field of the user
+      const question = await Question.findById(id)
+        .populate("comments.user", "name") // Only populate the user's name
+        .select("comments"); // Select only the comments field
+  
+      if (!question) {
+        return res.status(404).json({
+          success: false,
+          message: "Question not found",
+        });
+      }
+  
+      // Return the comments from the question
+      res.status(200).json({
+        success: true,
+        message: "Comments fetched successfully",
+        comments: question.comments,
+      });
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+      res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+      });
+    }
+  };
+  
+
+
+
+
+export const getAllQuestionsForAdmin = async (req, res) => {
+  try {
+    const { limit = 10, page = 1 } = req.query; // Pagination parameters
+
+    const questions = await Question.find()
+      .populate("owner", "name email") // Populate owner details
+      .sort({ createdAt: -1 }) // Sort by latest first
+      .skip((page - 1) * limit) // Apply pagination
+      .limit(parseInt(limit)); // Limit the number of questions per page
+
+    const totalQuestions = await Question.countDocuments();
+
+    res.status(200).json({
+      success: true,
+      message: "Questions fetched successfully",
+      questions,
+      pagination: {
+        totalQuestions,
+        currentPage: parseInt(page),
+        totalPages: Math.ceil(totalQuestions / limit),
+      },
+    });
+  } catch (error) {
+    console.error("Error fetching questions:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error fetching questions",
+      error,
+    });
+  }
+};
+
+  
 
   
 
