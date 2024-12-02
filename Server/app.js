@@ -15,7 +15,7 @@ config({
 
 // Configure CORS middleware
 app.use(cors({
-  origin: ["http://localhost:5173", "https://qn-a-finance-p2q9.vercel.app/"], // Replace with your frontend's domain for production
+  origin: ["http://localhost:5173", "https://qn-a-finance-p2q9.vercel.app/", "https://qn-a-finance-rryz.vercel.app"], // Replace with your frontend's domain for production
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allowed methods
   credentials: true, // If your frontend uses cookies
 }));
