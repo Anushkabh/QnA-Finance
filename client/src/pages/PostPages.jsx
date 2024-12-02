@@ -41,7 +41,7 @@ export default function PostPages() {
   useEffect(() => {
     const fetchRecentQuestions = async () => {
       try {
-        const res = await fetch(`/api/v1/question/approved?limit=2`);
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/approved?limit=2`);
         const data = await res.json();
         if (res.ok) {
           setRecentQuestions(data.questions);

@@ -16,7 +16,7 @@ export default function DashQuestions() {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch('${import.meta.env.VITE_API_BASE_URL}/api/v1/question/every', {
+        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/every`, {
           headers: {
             Authorization: `Bearer ${currentUser?.token}`,
           },

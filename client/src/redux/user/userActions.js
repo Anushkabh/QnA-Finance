@@ -3,7 +3,7 @@ import { signInStart, signInSuccess, signInFailure, signoutSuccess } from './use
 export const loginUser = (email, password) => async (dispatch) => {
   dispatch(signInStart());
   try {
-    const res = await fetch('${import.meta.env.VITE_API_BASE_URL}/api/v1/user/login', {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export const loginUser = (email, password) => async (dispatch) => {
 
 export const logoutUser = () => async (dispatch) => {
   try {
-    const res = await fetch('${import.meta.env.VITE_API_BASE_URL}/api/v1/user/logout', {
+    const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/logout`, {
       method: 'GET',
       credentials: 'include', // Make sure to include the cookies in the request
     });
