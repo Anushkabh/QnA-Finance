@@ -14,14 +14,20 @@ config({
 
 
 // Configure CORS middleware
-app.use(cors({
-  origin: ["http://localhost:5173", "https://qn-a-finance-p2q9.vercel.app/"], // Replace with your frontend's domain for production
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allowed methods
-  credentials: true, // If your frontend uses cookies
-}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors({
+  origin: ["http://localhost:5173", "https://qn-a-finance-gqxa.vercel.app"], // Replace with your frontend's domain for production
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allowed methods
+  credentials: true, // If your frontend uses cookies
+  allowedHeaders: [
+      "Content-Type", 
+      "Authorization", 
+      "x-requested-with"
+    ], 
+}));
 
 
 app.use("/api/v1/user", userRouter);
