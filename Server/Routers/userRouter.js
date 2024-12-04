@@ -5,7 +5,6 @@ import {
   register,
   login,
   google,
-  
   logout,
   
 } from "../controllers/userController.js";
@@ -18,8 +17,8 @@ router.post("/register",  register);
 
 router.post("/login", login);
 router.post('/google',google);
-
 router.get("/logout",isAuthenticated, logout);
+
 router.get('/me', authenticateJWT, async (req, res) => {
   try {
     const userId = req.user.id; // Ensure this matches the middleware
