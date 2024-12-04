@@ -30,7 +30,7 @@ router.put("/:id", isAuthenticated, editQuestion); // Edit a question d
 router.delete("/:id", isAuthenticated, deleteQuestion) //d
 router.post("/:id/comment", isAuthenticated, addComment); // Add a comment to a question  d
 router.get("/:id",isAuthenticated, getQuestionById); // Get a question by ID but onlypproved
-router.get("/:id/all",isAuthenticated, getQuestionByIdALL); // Get a question by ID but onlypproved
+router.get("/:id/all", getQuestionByIdALL); // Get a question by ID but onlypproved
 router.get("/:id/comments", getCommentsByQuestionId); // Get comments by question ID
 
 

@@ -2,11 +2,12 @@ import { Sidebar } from 'flowbite-react';
 import {
   HiUser,
   HiArrowSmRight,
-  HiDocumentText,
-  HiOutlineUserGroup,
-  HiAnnotation,
-  HiChartPie,
+
 } from 'react-icons/hi';
+import { MdApproval } from "react-icons/md";
+import { GrStatusGood } from "react-icons/gr";
+import { CiEdit } from "react-icons/ci";
+import { MdDelete } from "react-icons/md";
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { signoutSuccess } from '../redux/user/userSlice';
@@ -61,7 +62,7 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=status'>
               <Sidebar.Item
                 active={tab === 'status' || !tab}
-                icon={HiChartPie}
+                icon={GrStatusGood}
                 as='div'
               >
                 Status
@@ -72,7 +73,7 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=Edit'>
               <Sidebar.Item
                 active={tab === 'Edit'}
-                icon={HiDocumentText}
+                icon={CiEdit}
                 as='div'
               >
                 Edit/Delete Questions
@@ -84,7 +85,7 @@ export default function DashSidebar() {
               <Link to='/dashboard?tab=Pending'>
                 <Sidebar.Item
                   active={tab === 'Pending'}
-                  icon={HiOutlineUserGroup}
+                  icon={MdApproval}
                   as='div'
                 >
                   Pending Questions
@@ -97,10 +98,10 @@ export default function DashSidebar() {
             <Link to='/dashboard?tab=AllQuestions'>
               <Sidebar.Item
                 active={tab === 'AllQuestions'}
-                icon={HiAnnotation}
+                icon={MdDelete}
                 as='div'
               >
-                Questions
+                Delete Questions
               </Sidebar.Item>
             </Link>
           )}

@@ -24,29 +24,7 @@ export default function App() {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    // Fetch the user data to check if the user is authenticated
-    const checkAuth = async () => {
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/me`, {
-          method: 'GET',
-          credentials: 'include', // Ensure cookies are included
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          dispatch(setCurrentUser(data.user)); // Set the user data in Redux state
-        } else {
-          dispatch(setCurrentUser(null)); // If the response is not OK, clear user data
-        }
-      } catch (error) {
-        console.error('Error checking authentication:', error);
-        dispatch(setCurrentUser(null)); // If error occurs, clear user data
-      }
-    };
-
-    checkAuth(); // Run the authentication check on app load
-  }, [dispatch]);
+ 
   return (
     <BrowserRouter>
       <ScrollToTop/>

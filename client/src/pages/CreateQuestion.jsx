@@ -43,7 +43,7 @@ export default function AskQuestion() {
       }
 
       // If the question is successfully created, navigate to the dashboard
-      navigate('/dashboard');
+      navigate('/dashboard?tab=Edit');
     } catch (error) {
       console.error('Error submitting question:', error);
       setErrorMessage(error.message || 'Something went wrong. Please try again.');
