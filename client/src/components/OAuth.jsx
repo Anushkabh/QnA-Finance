@@ -18,6 +18,7 @@ export default function OAuth() {
             const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/google`, {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
               body: JSON.stringify({
                   name: resultsFromGoogle.user.displayName,
                   email: resultsFromGoogle.user.email,
