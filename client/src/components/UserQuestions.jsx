@@ -86,7 +86,7 @@ export default function DashQuestions() {
                 >
                   <Table.Cell>{question.status}</Table.Cell>
                   <Table.Cell>{question.title}</Table.Cell>
-                  <Table.Cell>{question.tag}</Table.Cell>
+                  <Table.Cell>{question.tag}</Table.Cell> 
                   <Table.Cell>
                     <Link
                       className="text-teal-500 hover:underline"
