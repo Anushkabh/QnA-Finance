@@ -26,7 +26,7 @@ export default function PostCard({ question }) {
 
         {/* Link to Question Details */}
         <Link
-          to={`/question/${question._id}`}
+          to={`/question/${question._id}/all`}
           className="absolute bottom-3 left-3 right-3 border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white transition-all duration-300 text-center py-1 rounded-md"
         >
           View Question

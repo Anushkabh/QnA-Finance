@@ -108,6 +108,45 @@ export const login = async (req, res) => {
         message: 'Logged out successfully',
       });
   };
+
+ 
+
+export const google = async (req, res, next) => {
+  const { email, name, googlePhotoUrl } = req.body;
+
+  try {
+    // Check if the user already exists
+    let user = await User.findOne({ email });
+
+    if (user) {
+      // User already exists, generate JWT and set cookie
+      return setCookie(user, res, "Logged in successfully via Google", 200);
+    }
+
+    // User does not exist, create a new user
+    const generatedPassword =
+      Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+    const hashedPassword = await bcrypt.hash(generatedPassword, 10);
+
+    user = new User({
+      name,
+      email,
+      password: hashedPassword,
+      profilePicture: googlePhotoUrl,
+    });
+
+    await user.save();
+
+    // Generate JWT and set cookie for the new user
+    setCookie(user, res, "Registered and logged in successfully via Google", 201);
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
   
   
 

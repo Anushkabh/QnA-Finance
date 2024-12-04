@@ -13,11 +13,12 @@ export default function Questionstatus() {
   useEffect(() => {
     const fetchPendingQuestions = async () => {
       try {
-        const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/pending`, {
-          headers: {
-            Authorization: `Bearer ${currentUser?.token}`,
-          },
-        });
+        const res = await fetch(
+          `${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/pending`,
+          {
+            credentials: 'include',
+          }
+        );
         const data = await res.json();
         if (!res.ok) {
           setError(data.message || 'Failed to fetch pending questions.');
@@ -34,16 +35,22 @@ export default function Questionstatus() {
   }, [currentUser]);
 
   // Handle status update
-  const handleUpdateStatus = async (questionId, status) => {
+  const handleUpdateStatus = async (questionId, status, e) => {
+    // Prevent event propagation to the row click handler
+    e.stopPropagation();
+
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/${questionId}/status`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${currentUser?.token}`,
-        },
-        body: JSON.stringify({ status }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/${questionId}/status`,
+        {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({ status }),
+        }
+      );
       const data = await res.json();
 
       if (!res.ok) {
@@ -88,9 +95,11 @@ export default function Questionstatus() {
                   <Table.Cell>{new Date(question.createdAt).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>{question.title}</Table.Cell>
                   <Table.Cell>{question.tag}</Table.Cell>
-                  <Table.Cell>
+                  <Table.Cell
+                    onClick={(e) => e.stopPropagation()} // Stop propagation for this specific cell
+                  >
                     <Select
-                      onChange={(e) => handleUpdateStatus(question._id, e.target.value)}
+                      onChange={(e) => handleUpdateStatus(question._id, e.target.value, e)}
                       className="w-40"
                       defaultValue="pending"
                     >
@@ -113,3 +122,6 @@ export default function Questionstatus() {
     </div>
   );
 }
+
+
+

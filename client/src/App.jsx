@@ -1,8 +1,11 @@
 // import React from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
 import Home from './pages/Home';
 import About from './pages/About';
 import SignIn from './pages/SignIn';
+import { setCurrentUser } from './redux/user/userSlice'; 
 import Dashboard from './pages/Dashboard';
 import Projects from './pages/Project';
 import SignUp from './pages/SignUp';
@@ -17,6 +20,33 @@ import ScrollToTop from './components/ScrollToTop';
 import Search from './pages/Search';
 import QuestionDetails from './pages/Questiondetail';
 export default function App() {
+
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Fetch the user data to check if the user is authenticated
+    const checkAuth = async () => {
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/me`, {
+          method: 'GET',
+          credentials: 'include', // Ensure cookies are included
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          dispatch(setCurrentUser(data.user)); // Set the user data in Redux state
+        } else {
+          dispatch(setCurrentUser(null)); // If the response is not OK, clear user data
+        }
+      } catch (error) {
+        console.error('Error checking authentication:', error);
+        dispatch(setCurrentUser(null)); // If error occurs, clear user data
+      }
+    };
+
+    checkAuth(); // Run the authentication check on app load
+  }, [dispatch]);
   return (
     <BrowserRouter>
       <ScrollToTop/>
@@ -26,14 +56,12 @@ export default function App() {
         <Route path="/about" element={<About/>}/>
         <Route path="/sign-in" element={<SignIn/>}/>
         <Route path='/search' element={<Search />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
         
-          <Route path="/dashboard" element={<Dashboard/>}/>
-       
-      
-          <Route path="/update-question/:questionId" element={<UpdateQuestion/>}/>
-          
-       
+        </Route>
         
+        <Route path="/update-question/:questionId" element={<UpdateQuestion/>}/>
         <Route path="/sign-up" element={<SignUp/>}/>
         <Route path="/projects" element={<Projects/>}/>
         <Route path="/ask-question" element={<AskQuestion/>}/>

@@ -28,6 +28,7 @@ export default function AskQuestion() {
       // API call to create a question
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/create`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });

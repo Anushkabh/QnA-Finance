@@ -9,6 +9,7 @@ export const loginUser = (email, password) => async (dispatch) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
+      credentials: 'include',  // Send cookies with the request
     });
 
     const data = await res.json();
@@ -28,11 +29,12 @@ export const loginUser = (email, password) => async (dispatch) => {
 
 
 
+
 export const logoutUser = () => async (dispatch) => {
   try {
     const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/logout`, {
       method: 'GET',
-      credentials: 'include', // Make sure to include the cookies in the request
+      credentials: 'include', // Ensure cookies are sent with the request
     });
 
     if (res.ok) {
@@ -44,5 +46,6 @@ export const logoutUser = () => async (dispatch) => {
     console.error('Logout failed:', error.message);
   }
 };
+
 
 

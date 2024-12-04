@@ -13,13 +13,14 @@ export default function DashQuestions() {
   const navigate = useNavigate();
 
   // Fetch user-associated questions
+  console.log(currentUser);
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/every`, {
-          headers: {
-            Authorization: `Bearer ${currentUser?.token}`,
-          },
+          method: 'GET',
+          credentials: 'include',
+          
         });
         const data = await res.json();
         if (!res.ok) {
@@ -41,9 +42,7 @@ export default function DashQuestions() {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionIdToDelete}`, {
         method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${currentUser?.token}`,
-        },
+        credentials: 'include',
       });
       const data = await res.json();
 

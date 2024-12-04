@@ -29,9 +29,8 @@ export default function UpdateQuestion() {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionId}/all`, {
           method: 'GET',
-          headers: {
-            Authorization: `Bearer ${currentUser?.token}` // Ensure token is sent if required
-          }
+          credentials: 'include',
+         
         });
         const data = await res.json();
         if (!res.ok) {
@@ -62,9 +61,10 @@ export default function UpdateQuestion() {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionId}`, {
         method: 'PUT',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${currentUser?.token}`
+         
         },
         body: JSON.stringify(formData)
       });

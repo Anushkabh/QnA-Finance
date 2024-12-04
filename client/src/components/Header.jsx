@@ -15,6 +15,7 @@ export default function Header() {
   const handleSignout = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/logout`, {
+         
         method: 'GET',
         credentials: 'include', // Include cookies in the request
       });
@@ -27,7 +28,7 @@ export default function Header() {
         console.error('Logout failed:', data.message); // Log error if logout fails
       }
     } catch (error) {
-      console.error('Logout failed:', error.message);
+      console.error('Logout failed:', error.message);   
     }
   };
   

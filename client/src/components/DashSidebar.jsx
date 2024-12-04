@@ -29,6 +29,7 @@ export default function DashSidebar() {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/user/logout`, {
         method: 'GET',
+        credentials: 'include',
       });
       const data = await res.json();
       if (!res.ok) {

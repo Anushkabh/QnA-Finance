@@ -15,9 +15,8 @@ export default function DashPendingQuestions() {
     const fetchPendingQuestions = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/pending`, {
-          headers: {
-            Authorization: `Bearer ${currentUser?.token}`, // Pass token if required
-          },
+          method: 'GET',
+          credentials: 'include',
         });
         const data = await res.json();
         if (res.ok) {
@@ -39,9 +38,7 @@ export default function DashPendingQuestions() {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionIdToDelete}`, {
         method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${currentUser?.token}`, // Pass token if required
-        },
+        credentials: 'include',
       });
       const data = await res.json();
       if (res.ok) {

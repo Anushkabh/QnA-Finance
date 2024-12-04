@@ -24,5 +24,5 @@ export const setCookie = async (user, res, message, statusCode) => {
         message,
         user: sanitizedUser, // Send sanitized user object
       });
-  };
+  }; 
   

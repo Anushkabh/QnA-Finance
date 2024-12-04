@@ -16,9 +16,7 @@ export default function AdminAllQuestions() {
     const fetchQuestions = async (page = 1) => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/questions?limit=10&page=${page}`, {
-          headers: {
-            Authorization: `Bearer ${currentUser?.token}`,
-          },
+         credentials: "include",
         });
         const data = await res.json();
         if (!res.ok) {
@@ -44,9 +42,7 @@ export default function AdminAllQuestions() {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionIdToDelete}`, {
         method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${currentUser?.token}`,
-        },
+        credentials: "include",
       });
       const data = await res.json();
 
@@ -69,9 +65,7 @@ export default function AdminAllQuestions() {
     const fetchQuestions = async () => {
       try {
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/admin/questions?limit=10&page=${page}`, {
-          headers: {
-            Authorization: `Bearer ${currentUser?.token}`,
-          },
+         credentials: "include",
         });
         const data = await res.json();
         if (res.ok) {

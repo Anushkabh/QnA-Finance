@@ -25,7 +25,8 @@ app.use(cors({
   allowedHeaders: [
       "Content-Type", 
       "Authorization", 
-      "x-requested-with"
+      "x-requested-with",
+      "credentials",
     ], 
 }));
 

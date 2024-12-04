@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../redux/user/userActions';
+import OAuth from '../components/OAuth';
 
 export default function SignIn() {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -10,22 +11,23 @@ export default function SignIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Handle form input changes
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
   };
 
-  const handleSubmit = (e) => {
+  // Handle form submission
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return; // Optionally show a local error
+      return alert('Please fill out all fields'); // Local validation feedback
     }
-    dispatch(loginUser(formData.email, formData.password))
-      .then(() => {
-        navigate('/'); // Navigate to the home page on successful login
-      })
-      .catch((err) => {
-        console.error('Login error:', err); // Optional error logging
-      });
+    try {
+      await dispatch(loginUser(formData.email, formData.password)); // Call Redux action
+      navigate('/'); // Navigate to home page on success
+    } catch (err) {
+      console.error('Login error:', err.message); // Log error for debugging
+    }
   };
 
   return (
@@ -82,6 +84,13 @@ export default function SignIn() {
               )}
             </Button>
           </form>
+
+          {/* Add gap between SignIn button and OAuth */}
+          <div className="mt-4">
+            {/* Google OAuth Integration */}
+            <OAuth />
+          </div>
+
           <div className="flex gap-2 text-sm mt-5">
             <span>Don't have an account?</span>
             <Link to="/sign-up" className="text-blue-500">
@@ -98,7 +107,3 @@ export default function SignIn() {
     </div>
   );
 }
-
-
-
-

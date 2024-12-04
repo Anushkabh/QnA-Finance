@@ -212,19 +212,35 @@ export const manageQuestionStatus = async (req, res) => {
 
 
 
-  export const getApprovedQuestions = async (req, res) => {  // iska dekhna h
+  export const getApprovedQuestions = async (req, res) => {
+    const page = parseInt(req.query.page, 10) || 1; // Default to page 1 if not provided
+    const limit = parseInt(req.query.limit, 10) || 10; // Default to 10 questions per page
+    const skip = (page - 1) * limit; // Calculate the number of documents to skip
+  
     try {
-      // Fetch all approved questions and include comments
+      // Fetch approved questions with pagination and populate details
       const questions = await Question.find({ status: "approved" })
         .populate("owner", "name email") // Populate owner details (optional)
         .populate("comments.user", "name email") // Populate comment authors (optional)
-        .sort({ createdAt: -1 }); // Sort by most recent
+        .sort({ createdAt: -1 }) // Sort by most recent
+        .skip(skip) // Skip questions based on the current page
+        .limit(limit); // Limit the number of questions fetched
   
-      res.status(200).json({ message: "Approved questions fetched successfully", questions });
+      // Get the total count of approved questions for pagination metadata
+      const totalQuestions = await Question.countDocuments({ status: "approved" });
+  
+      res.status(200).json({
+        message: "Approved questions fetched successfully",
+        questions,
+        currentPage: page,
+        totalPages: Math.ceil(totalQuestions / limit),
+        totalQuestions,
+      });
     } catch (error) {
       res.status(500).json({ message: "Error fetching approved questions", error });
     }
   };
+  
 
   export const getUserPendingQuestions = async (req, res) => {
     try {
