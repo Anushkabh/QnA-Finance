@@ -17,7 +17,7 @@ export default function FooterCom() {
           <div className='grid grid-cols-2 gap-8 mt-4 sm:grid-cols-3 sm:gap-6'>
             <div>
               <Footer.Title title='About Us' className='font-bold'/>
-              <div className='py-2'>Q N</div> 
+              <div className='py-2'>Q A</div> 
               <div></div>
             </div>
             <div>
@@ -59,7 +59,7 @@ export default function FooterCom() {
         <div className='w-full sm:flex sm:items-center sm:justify-between'>
           <Footer.Copyright
             href='#'
-            by="Anushka QN Application"
+            by="Anushka QA Application"
             year={new Date().getFullYear()}
           />
           <div className="flex gap-6 sm:mt-0 mt-4 sm:justify-center">
