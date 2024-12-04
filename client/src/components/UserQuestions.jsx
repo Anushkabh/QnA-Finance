@@ -70,7 +70,7 @@ export default function DashQuestions() {
           {/* Table Section */}
           <Table hoverable className="shadow-md rounded-lg">
             <Table.Head>
-              <Table.HeadCell>Date Created</Table.HeadCell>
+              <Table.HeadCell>Status</Table.HeadCell>
               <Table.HeadCell>Title</Table.HeadCell>
               <Table.HeadCell>Tag</Table.HeadCell>
               <Table.HeadCell>Edit</Table.HeadCell>
@@ -84,7 +84,7 @@ export default function DashQuestions() {
                   className="bg-white dark:border-gray-700 dark:bg-gray-800 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
                   onClick={() => navigate(`/question/${question._id}/all`)}
                 >
-                  <Table.Cell>{new Date(question.createdAt).toLocaleDateString()}</Table.Cell>
+                  <Table.Cell>{new Date(question.status).toLocaleDateString()}</Table.Cell>
                   <Table.Cell>{question.title}</Table.Cell>
                   <Table.Cell>{question.tag}</Table.Cell>
                   <Table.Cell>

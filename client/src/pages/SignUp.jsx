@@ -101,7 +101,10 @@ export default function SignUp() {
               )}
               
             </Button>
-            <OAuth /> {/* OAuth Component */}
+            <div className="mt-4">
+            {/* Google OAuth Integration */}
+            <OAuth />
+          </div> {/* OAuth Component */}
           </form>
           <div className="flex gap-2 text-sm mt-5">
             <span>Have an account?</span>
