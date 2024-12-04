@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import DashSidebar from '../components/DashSidebar';
 import DashProfile from '../components/DashProfile';
-import DashQuestions from '../components/DashPosts';
-import DashPendingQuestions from '../components/DashUsers';
-import AdminallQuestions from '../components/DashComments';
-import Questionstatus from '../components/DashboardComp';
+import DashQuestions from '../components/UserQuestions';
+import DashPendingQuestions from '../components/PendingQuestions';
+import AdminallQuestions from '../components/AdminQuestions';
+import Questionstatus from '../components/QuestionStatus';
 
 export default function Dashboard() {
   const location = useLocation();

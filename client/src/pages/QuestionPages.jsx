@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { Button, Spinner } from 'flowbite-react';
 
 import CommentSection from '../components/CommentSection'; // Assume this handles comment posting
-import PostCard from '../components/PostCard';
+import PostCard from '../components/QuestionCard';
 
 export default function PostPages() {
   const { questionId } = useParams();

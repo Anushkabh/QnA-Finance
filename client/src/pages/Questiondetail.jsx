@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Button, Spinner } from 'flowbite-react';
-import PostCard from '../components/PostCard';
+import PostCard from '../components/QuestionCard';
 import CommentSection from '../components/CommentSection';
 
 export default function QuestionDetails() {
@@ -19,7 +19,7 @@ export default function QuestionDetails() {
         setLoading(true);
         const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/api/v1/question/${questionId}/all`, {
           credentials: 'include',
-          
+
         });
         const data = await res.json();
         if (!res.ok) {
