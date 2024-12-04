@@ -99,7 +99,7 @@ export default function DashQuestions() {
                   <Table.Cell>
                     <span
                       onClick={(e) => {
-                        e.stopPropagation(); // Prevent row click navigation
+                        e.stopPropagation(); // Prevent row click navigation ok
                         setShowModal(true);
                         setQuestionIdToDelete(question._id);
                       }}
