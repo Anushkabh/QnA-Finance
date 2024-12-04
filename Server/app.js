@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(cors({
-  origin: ["http://localhost:5173", "https://qn-a-finance-gqxa.vercel.app"], // Replace with your frontend's domain for production
+  origin: ["http://localhost:5173", "https://qn-a-finance-7zze.vercel.app/"], // Replace with your frontend's domain for production
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"], // Allowed methods
   credentials: true, // If your frontend uses cookies
   allowedHeaders: [
