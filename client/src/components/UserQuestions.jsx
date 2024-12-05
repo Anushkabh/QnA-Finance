@@ -83,10 +83,10 @@ export default function DashQuestions() {
                   key={question._id}
                   className="bg-white dark:border-gray-700 dark:bg-gray-800 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 transition-all"
                   onClick={() => navigate(`/question/${question._id}/all`)}
-                >
-                  <Table.Cell>{question.status}</Table.Cell>
+                >  
                   <Table.Cell>{question.title}</Table.Cell>
                   <Table.Cell>{question.tag}</Table.Cell> 
+                  <Table.Cell>{question.status}</Table.Cell>
                   <Table.Cell>
                     <Link
                       className="text-teal-500 hover:underline"
